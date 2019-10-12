@@ -9,5 +9,6 @@ namespace BudgetMe.Models
     public class BudgetMeDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
     }
 }
