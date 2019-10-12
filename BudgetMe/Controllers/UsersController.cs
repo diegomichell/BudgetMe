@@ -32,6 +32,8 @@ namespace BudgetMe.Controllers
             {
                 return HttpNotFound();
             }
+
+            user.Transactions = db.Transactions.Where(t => t.UserId == user.Id).ToList();
             return View(user);
         }
 

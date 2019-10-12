@@ -44,6 +44,56 @@
 
     </dl>
 </div>
+
+<div>
+    <h4>Transactions</h4>
+    <hr />
+
+    @foreach (var item in Model.Transactions)
+    {
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(modelItem => item.Amount)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(modelItem => item.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(modelItem => item.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(modelItem => item.TransactionType)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(modelItem => item.TransactionType)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(modelItem => item.CreatedAt)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(modelItem => item.UpdatedAt)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(modelItem => item.UpdatedAt)
+            </dd>
+        </dl>
+    }
+</div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
