@@ -7,13 +7,13 @@ namespace BudgetMe.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class BudgetMeV1 : IMigrationMetadata
+    public sealed partial class addnamefields : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(BudgetMeV1));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addnamefields));
         
         string IMigrationMetadata.Id
         {
-            get { return "201910121234105_BudgetMe-V1"; }
+            get { return "201911091116169_add-name-fields"; }
         }
         
         string IMigrationMetadata.Source

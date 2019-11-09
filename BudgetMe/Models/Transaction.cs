@@ -24,7 +24,7 @@ namespace BudgetMe.Models
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         [Required]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         public Transaction() {
             CreatedAt = DateTime.Now;

@@ -7,13 +7,13 @@ namespace BudgetMe.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class BudgetMev2 : IMigrationMetadata
+    public sealed partial class addnae : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(BudgetMev2));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addnae));
         
         string IMigrationMetadata.Id
         {
-            get { return "201910121338105_BudgetMe-v2"; }
+            get { return "201911090358054_add nae"; }
         }
         
         string IMigrationMetadata.Source
