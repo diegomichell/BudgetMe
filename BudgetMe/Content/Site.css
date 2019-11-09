@@ -15,3 +15,21 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.display-name {
+    color: #fff;
+    font-weight: bold;
+    padding-top: 5px;
+}
+
+.amount {
+    font-size: 20px;
+}
+
+.amount-income {
+    color: green;
+}
+
+.amount-expense {
+    color:red;
+}

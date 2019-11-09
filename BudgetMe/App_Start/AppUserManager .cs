@@ -29,5 +29,13 @@ namespace BudgetMe.App_Start
 
             return manager;
         }
+
+        public static User GetUser()
+        {
+            var context = new BudgetMeDbContext();
+            var id = System.Web.HttpContext.Current.User.Identity.GetUserId();
+
+            return context.Users.First(u => u.Id == id);
+        }
     }
 }

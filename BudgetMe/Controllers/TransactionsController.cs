@@ -6,10 +6,12 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BudgetMe.App_Start;
 using BudgetMe.Models;
 
 namespace BudgetMe.Controllers
 {
+    [Authorize]
     public class TransactionsController : Controller
     {
         private BudgetMeDbContext db = new BudgetMeDbContext();
@@ -50,6 +52,7 @@ namespace BudgetMe.Controllers
         {
             if (ModelState.IsValid)
             {
+                transaction.UserId = AppUserManager.GetUser().Id;
                 db.Transactions.Add(transaction);
                 db.SaveChanges();
                 return RedirectToAction("Index");

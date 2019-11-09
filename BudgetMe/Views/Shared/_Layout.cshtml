@@ -21,8 +21,17 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "fa fa-home" })</li>
-                    <li>@Html.ActionLink("Transacciones", "Index", "Transactions", new { area = "" })</li>
+                    <li><a href="/transactions">Transacciones</a></li>
                     <li>@Html.ActionLink("Carteras", "Index", "Wallets", new { area = "" })</li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        var user = BudgetMe.App_Start.AppUserManager.GetUser();
+
+                        <li><a href="#" class="display-name">@user.FirstName @user.LastName</a></li>
+                        <li>@Html.ActionLink("Salir", "LogOut", "Home")</li>
+                    }
                 </ul>
             </div>
         </div>

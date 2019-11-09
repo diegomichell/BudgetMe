@@ -55,6 +55,12 @@ namespace BudgetMe.Controllers
             return View(login);
         }
 
+        public ActionResult LogOut()
+        {
+            Request.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("Index", "Home");
+        }
+
         [HttpPost]
         [AllowAnonymous]
         public ActionResult Register(RegisterViewModel register)

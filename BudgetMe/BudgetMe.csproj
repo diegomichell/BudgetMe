@@ -213,6 +213,14 @@
     <Compile Include="Migrations\201911091116169_add-name-fields.Designer.cs">
       <DependentUpon>201911091116169_add-name-fields.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911091340214_v4.cs" />
+    <Compile Include="Migrations\201911091340214_v4.Designer.cs">
+      <DependentUpon>201911091340214_v4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911091350420_v5.cs" />
+    <Compile Include="Migrations\201911091350420_v5.Designer.cs">
+      <DependentUpon>201911091350420_v5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BudgetMeDbContext.cs" />
     <Compile Include="Models\Role.cs" />
@@ -338,6 +346,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201911091116169_add-name-fields.resx">
       <DependentUpon>201911091116169_add-name-fields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911091340214_v4.resx">
+      <DependentUpon>201911091340214_v4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911091350420_v5.resx">
+      <DependentUpon>201911091350420_v5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
