@@ -4,6 +4,7 @@ using BudgetMe.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,16 @@ namespace BudgetMe.Controllers
                     expenses = expensesResult.expenses
                 };
 
+                var transactionsByCategory = transactions.GroupBy(t => t.Category).Select(t => new { category = t.Key, total = t.Sum(ts => ts.Amount) });
+
+                List<DataPoint> dataPoints = new List<DataPoint>();
+
+               foreach(var tbc in transactionsByCategory)
+               {
+                    dataPoints.Add(new DataPoint(tbc.category.ToString(), tbc.total));
+               }
+
+                ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
                 ViewBag.resume = resume;
             }
 
