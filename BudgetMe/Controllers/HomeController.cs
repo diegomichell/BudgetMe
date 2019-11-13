@@ -18,6 +18,27 @@ namespace BudgetMe.Controllers
         {
             ViewBag.Title = "Home Page";
 
+            if(User.Identity.IsAuthenticated)
+            {
+                var context = new BudgetMeDbContext();
+                var user = AppUserManager.GetUser();
+                var transactions = context.Transactions.Where(t => t.UserId == user.Id).ToList();
+                var incomeTransactions = transactions.Where(t => t.TransactionType == TransactionType.INCOME);
+                var expenseTransactions = transactions.Where(t => t.TransactionType == TransactionType.EXPENSE);
+
+                var incomesResult = incomeTransactions.GroupBy(t => t.UserId).Select(t => new { incomes = t.Sum(ts => ts.Amount) }).First();
+                var expensesResult = expenseTransactions.GroupBy(t => t.UserId).Select(t => new { expenses = t.Sum(ts => ts.Amount) }).First();
+
+                var resume = new ResumeViewModel
+                {
+                    balance = incomesResult.incomes - expensesResult.expenses,
+                    incomes = incomesResult.incomes,
+                    expenses = expensesResult.expenses
+                };
+
+                ViewBag.resume = resume;
+            }
+
             return View();
         }
 

@@ -1,4 +1,24 @@
-﻿body {
+﻿.color-primary-0 {
+    background-color: #478EE4
+}
+/* Main Primary color */
+.color-primary-1 {
+    background-color: #87B8F4
+}
+
+.color-primary-2 {
+    background-color: #64A2ED
+}
+
+.color-primary-3 {
+    background-color: #2B7AD9
+}
+
+.color-primary-4 {
+    background-color: #1063C7
+}
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -14,6 +34,23 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.navbar {
+    font-size: 18px;
+}
+
+.navbar a {
+    color: #fff !important;
+}
+
+.nav > li > a:hover {
+    background-color: #2B7AD9;
+    border-radius: 8px;
+}
+
+.nav > li > a:focus {
+    background-color: none;
 }
 
 .display-name {
@@ -32,4 +69,41 @@ textarea {
 
 .amount-expense {
     color:red;
+}
+
+.resume {
+    margin-top: 10px;
+}
+
+.resume-container {
+    margin-top: 15px;
+}
+
+.resume-box {
+    background-color: #fff;
+    padding: 10px;
+    width: 100%;
+    min-height: 200px;
+    border: 1px solid #64A2ED;
+    box-shadow: 1px 2px 3px #ccc;
+}
+
+.resume-box ul {
+    list-style:none;
+}
+
+.resume-box ul li {
+    padding: 5px;
+}
+
+.resume-field {
+    font-weight: bold;
+    font-size: 20px;
+    display:block;
+}
+
+.section-title {
+    background-color: #f0f0f0;
+    padding: 15px;
+    border-radius: 8px;
 }

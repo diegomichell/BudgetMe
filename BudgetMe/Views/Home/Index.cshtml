@@ -1,7 +1,46 @@
-﻿<div class="jumbotron">
-    <h1>BudgetMe</h1>
-    <p class="lead">Bienvenido a <strong>BudgetMe</strong> tu aplicacion donde puedes controlar de forma mas eficiente tu dinero</p>
+﻿
+@if (User.Identity.IsAuthenticated)
+{
+    var resume = ViewBag.resume as BudgetMe.ViewModels.ResumeViewModel;
 
-    <a href="/Home/Login" class="btn btn-primary btn-lg">Iniciar sesión</a>
-    <a href="/Home/Register" class="btn btn-primary btn-lg">Crear cuenta</a>
-</div>
+    <div class="resume">
+        <h3 class="section-title">Vista Resumida</h3>
+        <hr />
+        <div class="resume-container">
+            <div class="col-md-3">
+                <div class="resume-box">
+                    <ul>
+                        <li>
+                            <div>
+                                <strong class="resume-field">Balance: </strong>
+                                <span class="amount amount-balance">$@resume.balance</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <strong class="resume-field">Ingresos: </strong>
+                                <span class="amount amount-income">$@resume.incomes</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <strong class="resume-field">Gastos: </strong>
+                                <span class="amount amount-expense">$@resume.expenses</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="jumbotron">
+        <h1>BudgetMe</h1>
+        <p class="lead">Bienvenido a <strong>BudgetMe</strong> tu aplicacion donde puedes controlar de forma mas eficiente tu dinero</p>
+
+        <a href="/Home/Login" class="btn btn-primary btn-lg">Iniciar sesión</a>
+        <a href="/Home/Register" class="btn btn-primary btn-lg">Crear cuenta</a>
+    </div>
+}

@@ -8,7 +8,7 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar color-primary-0 navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -18,29 +18,32 @@
                 </button>
                 @Html.ActionLink("BudgetMe", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "fa fa-home" })</li>
-                    <li><a href="/transactions">Transacciones</a></li>
-                    <li>@Html.ActionLink("Carteras", "Index", "Wallets", new { area = "" })</li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        var user = BudgetMe.App_Start.AppUserManager.GetUser();
 
-                        <li><a href="#" class="display-name">@user.FirstName @user.LastName</a></li>
-                        <li>@Html.ActionLink("Salir", "LogOut", "Home")</li>
-                    }
-                </ul>
-            </div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Inicio", "Index", "Home", new { area = "" }, new { @class = "fa fa-home" })</li>
+                        <li><a href="/transactions">Transacciones</a></li>
+                        <li>@Html.ActionLink("Carteras", "Index", "Wallets", new { area = "" })</li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            var user = BudgetMe.App_Start.AppUserManager.GetUser();
+
+                            <li><a href="#" class="display-name">@user.FirstName @user.LastName</a></li>
+                            <li>@Html.ActionLink("Salir", "LogOut", "Home")</li>
+                        }
+                    </ul>
+                </div>
+            }
         </div>
     </div>
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Presupuesto Inteligente</p>
         </footer>
     </div>
 
