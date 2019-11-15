@@ -1,5 +1,6 @@
 ﻿using BudgetMe.App_Start;
 using BudgetMe.Models;
+using BudgetMe.Services;
 using BudgetMe.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -17,36 +18,36 @@ namespace BudgetMe.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
+            ViewBag.Title = "Inicio";
 
-            if(User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated)
             {
-                var context = new BudgetMeDbContext();
-                var user = AppUserManager.GetUser();
-                var transactions = context.Transactions.Where(t => t.UserId == user.Id).ToList();
-                var incomeTransactions = transactions.Where(t => t.TransactionType == TransactionType.INCOME);
-                var expenseTransactions = transactions.Where(t => t.TransactionType == TransactionType.EXPENSE);
-
-                var incomesResult = incomeTransactions.GroupBy(t => t.UserId).Select(t => new { incomes = t.Sum(ts => ts.Amount) }).First();
-                var expensesResult = expenseTransactions.GroupBy(t => t.UserId).Select(t => new { expenses = t.Sum(ts => ts.Amount) }).First();
-
+                var transactionsService = new TransactionsService();
+                var incomes = transactionsService.GetTotalIncomes();
+                var expenses = transactionsService.GetTotalExpenses();
                 var resume = new ResumeViewModel
                 {
-                    balance = incomesResult.incomes - expensesResult.expenses,
-                    incomes = incomesResult.incomes,
-                    expenses = expensesResult.expenses
+                    balance = incomes - expenses,
+                    incomes = incomes,
+                    expenses = expenses
                 };
+                var incomesByCategory = transactionsService.GetIncomesByCategory();
+                var expensesByCategory = transactionsService.GetExpensesByCategory();
+                var expensesDataPoints = new List<DataPoint>();
+                var incomesDataPoints = new List<DataPoint>();
 
-                var transactionsByCategory = transactions.GroupBy(t => t.Category).Select(t => new { category = t.Key, total = t.Sum(ts => ts.Amount) });
+                foreach (var ibc in incomesByCategory)
+                {
+                    incomesDataPoints.Add(new DataPoint(ibc.Category, ibc.Total));
+                }
 
-                List<DataPoint> dataPoints = new List<DataPoint>();
+                foreach (var ebc in expensesByCategory)
+                {
+                    expensesDataPoints.Add(new DataPoint(ebc.Category, ebc.Total));
+                }
 
-               foreach(var tbc in transactionsByCategory)
-               {
-                    dataPoints.Add(new DataPoint(tbc.category.ToString(), tbc.total));
-               }
-
-                ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
+                ViewBag.IncomesDataPoints = JsonConvert.SerializeObject(incomesDataPoints);
+                ViewBag.ExpensesDataPoints = JsonConvert.SerializeObject(expensesDataPoints);
                 ViewBag.resume = resume;
             }
 
@@ -103,7 +104,7 @@ namespace BudgetMe.Controllers
                 User user = new User { UserName = register.UserName, Email = register.Email, FirstName = register.FirstName, LastName = register.LastName };
                 var ident = userManager.Create(user, register.Password);
 
-                if(!ident.Succeeded)
+                if (!ident.Succeeded)
                 {
                     ModelState.AddModelError("", "Usuario o contraseña incorrecta");
                     return View(register);
@@ -112,7 +113,7 @@ namespace BudgetMe.Controllers
                 return Redirect(Url.Action("Login", "Home"));
             }
 
-            ModelState.AddModelError("","Existen campos invalidos");
+            ModelState.AddModelError("", "Existen campos invalidos");
             return View(register);
         }
 

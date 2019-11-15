@@ -32,7 +32,12 @@
                 </div>
             </div>
             <div class="col-md-9">
-                <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+                <div class="row">
+                    <div id="incomesChartContainer" style="height: 370px; width: 100%;"></div>
+                </div>
+                <div class="row">
+                    <div id="expensesChartContainer" style="height: 370px; width: 100%;"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -51,13 +56,12 @@ else
 @section scripts {
     <script>
 window.onload = function () {
-
-var chart = new CanvasJS.Chart("chartContainer", {
+new CanvasJS.Chart("incomesChartContainer", {
 	theme: "light2", // "light1", "light2", "dark1", "dark2"
 	exportEnabled: true,
 	animationEnabled: true,
 	title: {
-		text: "Automotive",
+		text: "Ingresos por categoría",
 		fontSize: 21
 	},
 	data: [{
@@ -65,11 +69,26 @@ var chart = new CanvasJS.Chart("chartContainer", {
 		startAngle: 160,
 		toolTipContent: "<b>{label}</b>: {y}%",
 		indexLabel: "{label} - {y}%",
-		dataPoints: @Html.Raw(ViewBag.DataPoints)
+		dataPoints: @Html.Raw(ViewBag.IncomesDataPoints)
 	}]
-});
-chart.render();
+}).render();
 
+new CanvasJS.Chart("expensesChartContainer", {
+	theme: "light2", // "light1", "light2", "dark1", "dark2"
+	exportEnabled: true,
+	animationEnabled: true,
+	title: {
+		text: "Gastos por categoría",
+		fontSize: 21
+	},
+	data: [{
+		type: "pie",
+		startAngle: 160,
+		toolTipContent: "<b>{label}</b>: {y}%",
+		indexLabel: "{label} - {y}%",
+		dataPoints: @Html.Raw(ViewBag.ExpensesDataPoints)
+	}]
+    }).render();
 }
     </script>
 }

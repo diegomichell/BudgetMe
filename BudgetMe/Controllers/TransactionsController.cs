@@ -19,7 +19,7 @@ namespace BudgetMe.Controllers
         // GET: Transactions
         public ActionResult Index()
         {
-            return View(db.Transactions.ToList());
+            return View(db.Transactions.OrderByDescending(t => t.CreatedAt).ToList());
         }
 
         // GET: Transactions/Details/5
@@ -48,7 +48,7 @@ namespace BudgetMe.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Amount,Description,TransactionType,CreatedAt,UpdatedAt,UserId")] Transaction transaction)
+        public ActionResult Create([Bind(Include = "Id,Amount,Description,TransactionType,Category")] Transaction transaction)
         {
             if (ModelState.IsValid)
             {
