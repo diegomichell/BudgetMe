@@ -53,6 +53,10 @@ namespace BudgetMe.Models
         [DisplayName("Actualizada")]
         public DateTime UpdatedAt { get; set; }
         public string UserId { get; set; }
+        [DisplayName("Cartera")]
+        [Required]
+        public int WalletId { get; set; }
+        public Wallet Wallet { get; set; }
 
         public Transaction() {
             CreatedAt = DateTime.Now;

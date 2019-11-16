@@ -14,5 +14,6 @@ namespace BudgetMe.Models
 
         }
         public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<Wallet> Wallets { get; set; }
     }
 }

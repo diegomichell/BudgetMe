@@ -6,113 +6,114 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BudgetMe.App_Start;
 using BudgetMe.Models;
 
 namespace BudgetMe.Controllers
 {
-    public class UsersController : Controller
+    public class WalletsController : Controller
     {
         private BudgetMeDbContext db = new BudgetMeDbContext();
 
-        // GET: Users
+        // GET: Wallets
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+            return View(db.Wallets.ToList());
         }
 
-        // GET: Users/Details/5
+        // GET: Wallets/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
-            if (user == null)
+            Wallet wallet = db.Wallets.Find(id);
+            if (wallet == null)
             {
                 return HttpNotFound();
             }
-
-            user.Transactions = db.Transactions.Where(t => t.UserId == user.Id).ToList();
-            return View(user);
+            return View(wallet);
         }
 
-        // GET: Users/Create
+        // GET: Wallets/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Users/Create
+        // POST: Wallets/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,UserName,Name,Email,Password")] User user)
+        public ActionResult Create([Bind(Include = "Id,Title,Description")] Wallet wallet)
         {
+            var user = AppUserManager.GetUser();
+            wallet.UserId = user.Id;
             if (ModelState.IsValid)
             {
-                db.Users.Add(user);
+                db.Wallets.Add(wallet);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(user);
+            return View(wallet);
         }
 
-        // GET: Users/Edit/5
+        // GET: Wallets/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
-            if (user == null)
+            Wallet wallet = db.Wallets.Find(id);
+            if (wallet == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return View(wallet);
         }
 
-        // POST: Users/Edit/5
+        // POST: Wallets/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,UserName,Name,Email,Password")] User user)
+        public ActionResult Edit([Bind(Include = "Id,Title,Description")] Wallet wallet)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
+                db.Entry(wallet).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(user);
+            return View(wallet);
         }
 
-        // GET: Users/Delete/5
+        // GET: Wallets/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
-            if (user == null)
+            Wallet wallet = db.Wallets.Find(id);
+            if (wallet == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return View(wallet);
         }
 
-        // POST: Users/Delete/5
+        // POST: Wallets/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            User user = db.Users.Find(id);
-            db.Users.Remove(user);
+            Wallet wallet = db.Wallets.Find(id);
+            db.Wallets.Remove(wallet);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

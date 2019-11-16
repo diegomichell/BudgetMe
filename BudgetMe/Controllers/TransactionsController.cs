@@ -31,7 +31,7 @@ namespace BudgetMe.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Transaction transaction = db.Transactions.Find(id);
+            Transaction transaction = db.Transactions.Include("Wallet").Where(t => t.Id == id).FirstOrDefault();
             if (transaction == null)
             {
                 return HttpNotFound();
@@ -42,6 +42,9 @@ namespace BudgetMe.Controllers
         // GET: Transactions/Create
         public ActionResult Create()
         {
+            var user = AppUserManager.GetUser();
+            ViewBag.Wallets = db.Wallets.Where(w => w.UserId == user.Id).ToList();
+
             return View();
         }
 
@@ -50,7 +53,7 @@ namespace BudgetMe.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Amount,Description,TransactionType,Category")] Transaction transaction)
+        public ActionResult Create([Bind(Include = "Id,Amount,Description,TransactionType,Category,WalletId")] Transaction transaction)
         {
             if (ModelState.IsValid)
             {

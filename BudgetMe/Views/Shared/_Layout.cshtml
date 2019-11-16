@@ -25,7 +25,7 @@
                     <ul class="nav navbar-nav">
                         <li>@Html.ActionLink("Inicio", "Index", "Home", new { area = "" }, new { @class = "fa fa-home" })</li>
                         <li><a href="/transactions">Transacciones</a></li>
-                        <li>@Html.ActionLink("Carteras", "Index", "Wallets", new { area = "" })</li>
+                        <li><a href="/wallets">Carteras</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         @if (User.Identity.IsAuthenticated)
