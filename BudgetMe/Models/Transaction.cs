@@ -9,18 +9,27 @@ namespace BudgetMe.Models
 {
     public enum TransactionType
     {
+        [Display(Name="Gasto")]
         EXPENSE,
+        [Display(Name = "Ingreso")]
         INCOME
     }
 
     public enum CategoryType
     {
+        [Display(Name = "Salario")]
         SALARY,
+        [Display(Name = "Renta")]
         RENT,
+        [Display(Name = "Comida")]
         FOOD,
+        [Display(Name = "Servicio")]
         SERVICE,
+        [Display(Name = "Combustible")]
         GAS,
+        [Display(Name = "Factura")]
         BILL,
+        [Display(Name = "Otros")]
         OTHER
     }
 

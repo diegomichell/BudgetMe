@@ -1,21 +1,19 @@
 ﻿using BudgetMe.App_Start;
 using BudgetMe.Models;
+using BudgetMe.Util;
 using BudgetMe.ViewModels;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace BudgetMe.Services
 {
     public class TransactionsService
     {
         BudgetMeDbContext context = new BudgetMeDbContext();
-
-        protected IEnumerable<Transaction> GetUserTransactions()
+        public IEnumerable<Transaction> GetUserTransactions()
         {
             var user = AppUserManager.GetUser();
-            return context.Transactions.Where(t => t.UserId == user.Id).ToList();
+            return from t in context.Transactions where t.UserId == user.Id select t;
         }
 
         public decimal GetTotalIncomes()
@@ -35,7 +33,7 @@ namespace BudgetMe.Services
             var transactions = GetUserTransactions().Where(t => t.TransactionType == TransactionType.EXPENSE);
             return transactions.
                 GroupBy(t => t.Category)
-                .Select(t => new TransactionGroup(t.Key.ToString(), t.Sum(ts => ts.Amount)));
+                .Select(t => new TransactionGroup(t.Key.GetDisplayName(), t.Sum(ts => ts.Amount)));
         }
 
         public IEnumerable<TransactionGroup> GetIncomesByCategory()
@@ -43,7 +41,7 @@ namespace BudgetMe.Services
             var transactions = GetUserTransactions().Where(t => t.TransactionType == TransactionType.INCOME);
             return transactions.
                 GroupBy(t => t.Category)
-                .Select(t => new TransactionGroup(t.Key.ToString(), t.Sum(ts => ts.Amount)));
+                .Select(t => new TransactionGroup(t.Key.GetDisplayName(), t.Sum(ts => ts.Amount)));
         }
     }
 }

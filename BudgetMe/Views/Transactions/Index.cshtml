@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<BudgetMe.Models.Transaction>
 
+@using BudgetMe.Util;
+
 @{
     ViewBag.Title = "Transacciones";
 }
@@ -29,31 +31,32 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        <span class="amount @(item.TransactionType == BudgetMe.Models.TransactionType.INCOME ? "amount-income" : "amount-expense")">
-            <i class="fa fa-dollar"></i>
-            @Html.DisplayFor(modelItem => item.Amount)
-        </span>
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Description)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.TransactionType)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Category)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.CreatedAt)
-    </td>
-    <td>
-        @Html.ActionLink("Detalle", "Details", new { id = item.Id }) |
-        @Html.ActionLink("Borrar", "Delete", new { id = item.Id })
-    </td>
-</tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <span class="amount @(item.TransactionType == BudgetMe.Models.TransactionType.INCOME ? "amount-income" : "amount-expense")">
+                    <i class="fa fa-dollar"></i>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </span>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @item.TransactionType.GetDisplayName()
+            </td>
+            <td>
+                @item.Category.GetDisplayName()
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.ActionLink("Detalle", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Borrar", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
 </table>

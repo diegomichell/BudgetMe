@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using BudgetMe.App_Start;
 using BudgetMe.Models;
+using BudgetMe.Services;
 
 namespace BudgetMe.Controllers
 {
@@ -19,7 +20,8 @@ namespace BudgetMe.Controllers
         // GET: Transactions
         public ActionResult Index()
         {
-            return View(db.Transactions.OrderByDescending(t => t.CreatedAt).ToList());
+            var transactions = new TransactionsService().GetUserTransactions();
+            return View(transactions.OrderByDescending(t => t.CreatedAt).ToList());
         }
 
         // GET: Transactions/Details/5

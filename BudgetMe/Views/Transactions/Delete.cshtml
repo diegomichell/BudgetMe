@@ -1,5 +1,7 @@
 ﻿@model BudgetMe.Models.Transaction
 
+@using BudgetMe.Util;
+
 @{
     ViewBag.Title = "Borrar";
 }
@@ -31,7 +33,15 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TransactionType)
+            @Model.TransactionType.GetDisplayName()
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+
+        <dd>
+            @Model.Category.GetDisplayName()
         </dd>
 
         <dt>
@@ -49,18 +59,10 @@
         <dd>
             @Html.DisplayFor(model => model.UpdatedAt)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
-
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">

@@ -1,5 +1,7 @@
 ﻿@model BudgetMe.Models.Transaction
 
+@using BudgetMe.Util;
+
 @{
     ViewBag.Title = "Detalle";
 }
@@ -41,7 +43,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TransactionType)
+            @Model.TransactionType.GetDisplayName()
         </dd>
 
         <dt>
@@ -49,7 +51,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Category)
+            @Model.Category.GetDisplayName()
         </dd>
 
         <dt>
