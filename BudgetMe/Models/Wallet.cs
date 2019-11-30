@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -16,5 +17,8 @@ namespace BudgetMe.Models
         [DisplayName("Descripción")]
         public string Description { get; set; }
         public string UserId { get; set; }
+        [NotMapped]
+        [DisplayName("Balance")]
+        public decimal? Balance { get; set; } = 0;
     }
 }

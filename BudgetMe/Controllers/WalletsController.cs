@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using BudgetMe.App_Start;
 using BudgetMe.Models;
+using BudgetMe.Services;
 
 namespace BudgetMe.Controllers
 {
@@ -18,7 +19,14 @@ namespace BudgetMe.Controllers
         // GET: Wallets
         public ActionResult Index()
         {
-            return View(db.Wallets.ToList());
+            var transactionsService = new TransactionsService();
+            return View(db.Wallets.ToList().Select(w => new Wallet { 
+                Id = w.Id,
+                Title = w.Title,
+                Description = w.Description,
+                UserId = w.UserId,
+                Balance = transactionsService.GetBalanceForWallet(w.Id)
+            }).ToList());
         }
 
         // GET: Wallets/Details/5
@@ -33,6 +41,10 @@ namespace BudgetMe.Controllers
             {
                 return HttpNotFound();
             }
+
+            var transactionsService = new TransactionsService();
+            wallet.Balance = transactionsService.GetBalanceForWallet(wallet.Id);
+
             return View(wallet);
         }
 
