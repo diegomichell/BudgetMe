@@ -35,6 +35,11 @@ namespace BudgetMe.Controllers
                 var expensesByCategory = transactionsService.GetExpensesByCategory();
                 var expensesDataPoints = new List<DataPoint>();
                 var incomesDataPoints = new List<DataPoint>();
+                var total = incomes + expenses;
+                var ratioDataPoints = new List<DataPoint> {
+                    new DataPoint("Ingresos", Math.Round((incomes * 100) / total, 2)),
+                    new DataPoint("Gastos",  Math.Round((expenses * 100) / total, 2))
+                };
 
                 foreach (var ibc in incomesByCategory)
                 {
@@ -48,6 +53,9 @@ namespace BudgetMe.Controllers
 
                 ViewBag.IncomesDataPoints = JsonConvert.SerializeObject(incomesDataPoints);
                 ViewBag.ExpensesDataPoints = JsonConvert.SerializeObject(expensesDataPoints);
+
+
+                ViewBag.RatioDataPoints = JsonConvert.SerializeObject(ratioDataPoints);
                 ViewBag.resume = resume;
             }
 

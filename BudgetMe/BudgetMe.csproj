@@ -196,6 +196,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\StateController.cs" />
     <Compile Include="Controllers\TransactionsController.cs" />
     <Compile Include="Controllers\WalletsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -243,6 +244,7 @@
     <Compile Include="Services\TransactionsService.cs" />
     <Compile Include="Util\EnumExtensions.cs" />
     <Compile Include="ViewModels\DataPoint.cs" />
+    <Compile Include="ViewModels\GeneralStateViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="ViewModels\ResumeViewModel.cs" />
@@ -318,6 +320,7 @@
     <Content Include="Views\Wallets\Details.cshtml" />
     <Content Include="Views\Wallets\Edit.cshtml" />
     <Content Include="Views\Wallets\Index.cshtml" />
+    <Content Include="Views\State\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

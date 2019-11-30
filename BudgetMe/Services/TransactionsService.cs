@@ -29,6 +29,11 @@ namespace BudgetMe.Services
             return transactions.Sum(t => t.Amount);
         }
 
+        public decimal GetBalance()
+        {
+            return GetTotalIncomes() - GetTotalExpenses();
+        }
+
         public IEnumerable<TransactionGroup> GetExpensesByCategory()
         {
             var transactions = GetUserTransactions().Where(t => t.TransactionType == TransactionType.EXPENSE);

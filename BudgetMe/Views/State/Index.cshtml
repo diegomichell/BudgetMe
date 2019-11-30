@@ -1,0 +1,74 @@
+﻿@model BudgetMe.ViewModels.GeneralStateViewModel
+
+<div class="section-bar mt-10">
+    <span class="section-bar-title">Estado de Situación</span>
+    <ul class="section-bar-options">
+        <li>
+            <a class="btn btn-default" onclick="window.print()"><i class="fa fa-print"></i> Imprimir</a>
+        </li>
+    </ul>
+</div>
+
+<div class="general-state-container">
+
+    <div class="report-box">
+        <div class="report-section">
+            <h3 class="report-title">Ingresos</h3>
+            <table class="report-table table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="col-md-6">Concepto</th>
+                        <th class="col-md-6">Monto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var tg in Model.IncomesList)
+                    {
+                        <tr>
+                            <td class="col-md-6">@tg.Category</td>
+                            <td class="col-md-6">$@tg.Total</td>
+                        </tr>
+                    }
+                    <tr>
+                        <td class="col-md-6"><strong>Total Ingresos</strong></td>
+                        <td class="col-md-6"><strong>$@Model.TotalIncomes</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="report-section">
+            <h3 class="report-title">Gastos</h3>
+            <table class="report-table table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="col-md-6">Concepto</th>
+                        <th class="col-md-6">Monto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var tg in Model.ExpensesList)
+                    {
+                        <tr>
+                            <td>@tg.Category</td>
+                            <td>$@tg.Total</td>
+                        </tr>
+                    }
+                    <tr>
+                        <td class="col-md-6"><strong>Total Gastos</strong></td>
+                        <td class="col-md-6"><strong>$@Model.TotalExpenses</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <table class="report-table table table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-6"><strong>Disponible</strong></td>
+                    <td class="col-md-6"><strong>$@Model.Balance</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

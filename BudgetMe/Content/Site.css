@@ -108,6 +108,25 @@ textarea {
     border-radius: 8px;
 }
 
+.section-bar {
+    background-color: #f0f0f0;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.section-bar-title {
+    padding: 0;
+    margin: 0;
+    font-size: 24px;
+}
+
+.section-bar-options {
+    list-style: none;
+    display: inline-block;
+    float: right;
+    margin-right: 20px;
+}
+
 .mt-10 {
     margin-top: 10px;
 }
@@ -123,4 +142,8 @@ textarea {
     flex-direction: column;
     align-content: center;
     justify-content: center;
+}
+
+.mt-50 {
+    margin-top: 50px;
 }

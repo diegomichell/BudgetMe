@@ -4,38 +4,50 @@
     var resume = ViewBag.resume as BudgetMe.ViewModels.ResumeViewModel;
 
     <div class="resume">
-        <h3 class="section-title">Resumen</h3>
+        <div class="section-bar">
+            <span class="section-bar-title">Resumen</span>
+            <ul class="section-bar-options">
+                <li>
+                    <a class="btn btn-default" href="/state">Estado de situación</a>
+                </li>
+            </ul>
+        </div>
         <hr />
         <div class="resume-container">
-            <div class="col-md-3">
-                <div class="resume-box">
-                    <ul>
-                        <li>
-                            <div>
-                                <strong class="resume-field">Balance: </strong>
-                                <span class="amount amount-balance">$@resume.balance</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <strong class="resume-field">Ingresos: </strong>
-                                <span class="amount amount-income">$@resume.incomes</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <strong class="resume-field">Gastos: </strong>
-                                <span class="amount amount-expense">$@resume.expenses</span>
-                            </div>
-                        </li>
-                    </ul>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="resume-box">
+                        <ul>
+                            <li>
+                                <div>
+                                    <strong class="resume-field">Balance: </strong>
+                                    <span class="amount amount-balance">$@resume.balance</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <strong class="resume-field">Ingresos: </strong>
+                                    <span class="amount amount-income">$@resume.incomes</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <strong class="resume-field">Gastos: </strong>
+                                    <span class="amount amount-expense">$@resume.expenses</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div id="ratioChartContainer" style="height: 370px; width: 100%;"></div>
                 </div>
             </div>
-            <div class="col-md-9">
-                <div class="row">
+            <div class="row mt-50">
+                <div class="col-md-6">
                     <div id="incomesChartContainer" style="height: 370px; width: 100%;"></div>
                 </div>
-                <div class="row">
+                <div class="col-md-6">
                     <div id="expensesChartContainer" style="height: 370px; width: 100%;"></div>
                 </div>
             </div>
@@ -65,10 +77,10 @@ new CanvasJS.Chart("incomesChartContainer", {
 		fontSize: 21
 	},
 	data: [{
-		type: "pie",
+		type: "doughnut",
 		startAngle: 160,
-		toolTipContent: "<b>{label}</b>: {y}%",
-		indexLabel: "{label} - {y}%",
+		toolTipContent: "<b>{label}</b>: {y}",
+		indexLabel: "{label} - {y}",
 		dataPoints: @Html.Raw(ViewBag.IncomesDataPoints)
 	}]
 }).render();
@@ -82,13 +94,31 @@ new CanvasJS.Chart("expensesChartContainer", {
 		fontSize: 21
 	},
 	data: [{
+		type: "doughnut",
+		startAngle: 160,
+		toolTipContent: "<b>{label}</b>: {y}",
+		indexLabel: "{label} - {y}",
+		dataPoints: @Html.Raw(ViewBag.ExpensesDataPoints)
+	}]
+}).render();
+
+ new CanvasJS.Chart("ratioChartContainer", {
+	theme: "light2", // "light1", "light2", "dark1", "dark2"
+	exportEnabled: true,
+	animationEnabled: true,
+	title: {
+		text: "Relación de gastos e ingresos",
+		fontSize: 21
+	},
+	data: [{
 		type: "pie",
 		startAngle: 160,
 		toolTipContent: "<b>{label}</b>: {y}%",
 		indexLabel: "{label} - {y}%",
-		dataPoints: @Html.Raw(ViewBag.ExpensesDataPoints)
+		dataPoints: @Html.Raw(ViewBag.RatioDataPoints)
 	}]
-    }).render();
+}).render();
+
 }
     </script>
 }
