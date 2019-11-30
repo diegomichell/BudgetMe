@@ -9,9 +9,8 @@ namespace BudgetMe.Models
 {
     public class BudgetMeDbContext : IdentityDbContext<User>
     {
-        public BudgetMeDbContext():base("BudgetMeDbContext")
+        public BudgetMeDbContext():base("DefaultConnection")
         {
-
         }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<Wallet> Wallets { get; set; }
